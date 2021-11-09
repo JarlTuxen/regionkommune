@@ -41,11 +41,13 @@ public class RestApiController {
         return kommuneRepository.findAll();
     }
 
+    //JPQL
     @GetMapping("/kommunenavn/{navn}")
     public List<Kommune> kommuneByName(@PathVariable String navn) {
         return kommuneRepository.findKommuneByKommuneNavn(navn);
     }
 
+    //JPQL
     @GetMapping("/kommuneregid/{regionKode}")
     public List<Kommune> kommuneByRegionId(@PathVariable Integer regionKode) {
         return kommuneRepository.findKommuneByRegionRegionKode(regionKode);

@@ -51,6 +51,7 @@ public class RestApiController {
         return kommuneRepository.findKommuneByRegionRegionKode(regionKode);
     }
 
+    //Paging default first page (0 index) with 10 kommuner
     @GetMapping("/kommunepageparm")
     public ResponseEntity<Map<String, Object>> getPageOfKommuner(
             @RequestParam(defaultValue = "0") int page,
@@ -75,6 +76,8 @@ public class RestApiController {
 
     }
 
+    //Paging default 3 kommuner each page and first page
+    //sort - default ascending - anything but asc as parameter gives descending
     @GetMapping("/kommunesortp")
     public ResponseEntity<Map<String, Object>>  getScreeningsSortAndPage (
             @RequestParam(defaultValue = "0") int page,

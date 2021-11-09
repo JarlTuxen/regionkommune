@@ -108,7 +108,7 @@ public class RestApiController {
     public ResponseEntity<Region> newRegion(@RequestBody Region region) {
 
         regionRepository.save(region);
-        return new ResponseEntity<Region>(region, HttpStatus.CREATED);
+        return new ResponseEntity<>(region, HttpStatus.CREATED);
     }
 
     @GetMapping("/kommuner/{id}")

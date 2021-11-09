@@ -1,5 +1,6 @@
 package dk.kea.regionkommune.controller;
 
+import dk.kea.regionkommune.exceptions.NotFoundException;
 import dk.kea.regionkommune.model.Kommune;
 import dk.kea.regionkommune.model.Region;
 import dk.kea.regionkommune.repository.KommuneRepository;
@@ -30,5 +31,16 @@ public class RestApiController {
     public List<Kommune> allKommuner(){
         return kommuneRepository.findAll();
     }
+
+    @GetMapping("/kommunenavn/{navn}")
+    public List<Kommune> kommuneByName(@PathVariable String navn) {
+        return kommuneRepository.findKommuneByKommuneNavn(navn);
+    }
+
+    @GetMapping("/kommuneregid/{regionKode}")
+    public List<Kommune> kommuneByRegionId(@PathVariable Integer regionKode) {
+        return kommuneRepository.findKommuneByRegionRegionKode(regionKode);
+    }
+
 
 }

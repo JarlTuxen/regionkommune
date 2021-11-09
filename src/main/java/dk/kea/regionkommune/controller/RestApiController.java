@@ -41,41 +41,25 @@ public class RestApiController {
         return kommuneRepository.findAll();
     }
 
-    @GetMapping("/kommunenavn/{navn}")
+/*    @GetMapping("/kommunenavn/{navn}")
     public List<Kommune> kommuneByName(@PathVariable String navn) {
-        return kommuneRepository.findKommuneByKommuneNavn(navn);
-    }
 
-    @GetMapping("/kommuneregid/{regionKode}")
+    } */
+
+/*    @GetMapping("/kommuneregid/{regionKode}")
     public List<Kommune> kommuneByRegionId(@PathVariable Integer regionKode) {
-        return kommuneRepository.findKommuneByRegionRegionKode(regionKode);
-    }
 
-    @GetMapping("/kommunepageparm")
+    } */
+
+/*    @GetMapping("/kommunepageparm")
     public ResponseEntity<Map<String, Object>> getPageOfKommuner(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
 
-        //PageNo and Size
-        Pageable paging = PageRequest.of(page, size);
-        Page<Kommune> pageKommune = kommuneRepository.findAll(paging);
+    } */
 
-        List<Kommune> kommuner = pageKommune.getContent();
 
-        if (kommuner.isEmpty())
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
-        Map<String, Object> response = new HashMap<>();
-        response.put("kommuner", kommuner);
-        response.put("currentPage", pageKommune.getNumber());
-        response.put("totalItems", pageKommune.getTotalElements());
-        response.put("totalPages", pageKommune.getTotalPages());
-
-        return new ResponseEntity<>(response, HttpStatus.OK);
-
-    }
-
-    @GetMapping("/kommunesortp")
+/*    @GetMapping("/kommunesortp")
     public ResponseEntity<Map<String, Object>>  getScreeningsSortAndPage (
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size,
@@ -83,21 +67,7 @@ public class RestApiController {
             @RequestParam(defaultValue = "asc") String sortOrder
     ){
 
-        //sortOrder as ternary operator (default is ascending) and sortBy as by-parameter
-        Pageable pagingSort = PageRequest.of(page, size, sortOrder.equals("asc")?Sort.by(sortBy):Sort.by(sortBy).descending());
-        Page<Kommune> pageScreens = kommuneRepository.findAll(pagingSort);
-        List<Kommune> kommuner = pageScreens.getContent();
-
-        if (kommuner.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
-        Map<String, Object> response = new HashMap<>();
-        response.put("kommuner", kommuner);
-        response.put("currentPage", pageScreens.getNumber());
-        response.put("totalItems", pageScreens.getTotalElements());
-        response.put("totalPages", pageScreens.getTotalPages());
-
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
+    } */
 
     @GetMapping("/regioner/{id}")
     public Region getRegion(@PathVariable int id) {

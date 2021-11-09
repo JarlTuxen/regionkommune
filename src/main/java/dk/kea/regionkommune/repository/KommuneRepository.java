@@ -7,9 +7,11 @@ import java.util.List;
 
 public interface KommuneRepository extends JpaRepository<Kommune, Integer> {
 
-    List<Kommune> findKommuneByKommuneNavn(String kommuneNavn);
 
-    List<Kommune> findKommuneByRegionRegionKode(Integer regionKode);
+    //JPQL kommuneNavn
+
+    //JPQL kommune i regionByRegionKode
+
 
 }
 

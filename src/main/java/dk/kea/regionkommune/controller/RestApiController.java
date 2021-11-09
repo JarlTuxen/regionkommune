@@ -1,6 +1,6 @@
 package dk.kea.regionkommune.controller;
 
-import dk.kea.regionkommune.exceptions.NotFoundException;
+import dk.kea.regionkommune.exceptions.ResourceNotFoundException;
 import dk.kea.regionkommune.model.Kommune;
 import dk.kea.regionkommune.model.Region;
 import dk.kea.regionkommune.repository.KommuneRepository;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -79,14 +80,11 @@ public class RestApiController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size,
             @RequestParam(defaultValue = "kommuneKode") String sortBy,
-            @RequestParam(defalutValue = "asc") String sortOrder
+            @RequestParam(defaultValue = "asc") String sortOrder
     ){
 
-        //sortOrder and sortBy
-        Sort _sortBy = Sort.by(sortBy);
-        Sort _sortOrder = Sort.by(sortOrder);
-        Sort orders = _sortBy.and(_sortOrder);
-        Pageable pagingSort = PageRequest.of(page, size, Sort.by(orders));
+        //sortOrder as ternary operator (default is ascending) and sortBy as by-parameter
+        Pageable pagingSort = PageRequest.of(page, size, sortOrder.equals("asc")?Sort.by(sortBy):Sort.by(sortBy).descending());
         Page<Kommune> pageScreens = kommuneRepository.findAll(pagingSort);
         List<Kommune> kommuner = pageScreens.getContent();
 
@@ -100,4 +98,31 @@ public class RestApiController {
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("/regioner/{id}")
+    public Region getRegion(@PathVariable int id) {
+        return regionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Region not found with id=" + id));
+    }
+
+    @PostMapping(value="/regioner", consumes = "application/json")
+    public ResponseEntity<Region> newRegion(@RequestBody Region region) {
+
+        regionRepository.save(region);
+        return new ResponseEntity<Region>(region, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/kommuner/{id}")
+    public Kommune getKommune(@PathVariable int id) {
+        return kommuneRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Kommune not found with id=" + id));
+    }
+
+    @PutMapping("/kommuner/{kommuneKode}")
+    public ResponseEntity<Kommune> updateKommune(@PathVariable int kommuneKode, @RequestBody Kommune kommune) {
+        Kommune _kommune = kommuneRepository.findById(kommuneKode)
+                .orElseThrow(() -> new ResourceNotFoundException("Kommune not found with id=" + kommuneKode));
+
+        kommuneRepository.save(kommune);
+        return new ResponseEntity<>(kommune, HttpStatus.OK);
+    }
+
 }

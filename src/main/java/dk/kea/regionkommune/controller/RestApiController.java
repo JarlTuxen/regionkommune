@@ -76,15 +76,14 @@ public class RestApiController {
 
     @PostMapping(value="/regioner", consumes = "application/json")
     public ResponseEntity<Region> newRegion(@RequestBody Region region) {
-
         regionRepository.save(region);
         return new ResponseEntity<>(region, HttpStatus.CREATED);
     }
 
-    @GetMapping("/kommuner/{id}")
+/*    @GetMapping("/kommuner/{id}")
     public Kommune getKommune(@PathVariable int id) {
-        return kommuneRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Kommune not found with id=" + id));
-    }
+
+    } */
 
     @PutMapping("/kommuner/{kommuneKode}")
     public ResponseEntity<Kommune> updateKommune(@PathVariable int kommuneKode, @RequestBody Kommune kommune) {
@@ -94,5 +93,10 @@ public class RestApiController {
         kommuneRepository.save(kommune);
         return new ResponseEntity<>(kommune, HttpStatus.OK);
     }
+
+/*    @PostMapping("/kommuner")
+    public ResponseEntity<Kommune> createKommune(){
+
+    }*/
 
 }

@@ -52,12 +52,29 @@ public class RestApiController {
         return kommuneRepository.findKommuneByRegionRegionKode(regionKode);
     }
 
-/*    @GetMapping("/kommunepageparm")
+    @GetMapping("/kommunepageparm")
     public ResponseEntity<Map<String, Object>> getPageOfKommuner(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
 
-    } */
+        //PageNo and Size
+        Pageable paging = PageRequest.of(page, size);
+        Page<Kommune> pageKommune = kommuneRepository.findAll(paging);
+
+        List<Kommune> kommuner = pageKommune.getContent();
+
+        if (kommuner.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("kommuner", kommuner);
+        response.put("currentPage", pageKommune.getNumber());
+        response.put("totalItems", pageKommune.getTotalElements());
+        response.put("totalPages", pageKommune.getTotalPages());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+
+    }
 
 
 /*    @GetMapping("/kommunesortp")

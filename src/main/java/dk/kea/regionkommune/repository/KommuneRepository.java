@@ -10,7 +10,7 @@ public interface KommuneRepository extends JpaRepository<Kommune, Integer> {
     //JPQL kommuneNavn
     List<Kommune> findKommuneByKommuneNavn(String kommuneNavn);
 
-    //JPQL kommune i regionByRegionKode
+    //JPQL kommune i regionByRegionKode - region.regionKode
     List<Kommune> findKommuneByRegionRegionKode(Integer regionKode);
 
 }

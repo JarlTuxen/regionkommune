@@ -34,6 +34,7 @@ public class RestApiController {
     @GetMapping("/regioner")
     public List<Region> allRegioner() {
         return regionRepository.findAll();
+
     }
 
     @GetMapping("/kommuner")
@@ -41,15 +42,15 @@ public class RestApiController {
         return kommuneRepository.findAll();
     }
 
-/*    @GetMapping("/kommunenavn/{navn}")
+    @GetMapping("/kommunenavn/{navn}")
     public List<Kommune> kommuneByName(@PathVariable String navn) {
+        return kommuneRepository.findKommuneByKommuneNavn(navn);
+    }
 
-    } */
-
-/*    @GetMapping("/kommuneregid/{regionKode}")
+    @GetMapping("/kommuneregid/{regionKode}")
     public List<Kommune> kommuneByRegionId(@PathVariable Integer regionKode) {
-
-    } */
+        return kommuneRepository.findKommuneByRegionRegionKode(regionKode);
+    }
 
 /*    @GetMapping("/kommunepageparm")
     public ResponseEntity<Map<String, Object>> getPageOfKommuner(

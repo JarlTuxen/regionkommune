@@ -2,7 +2,7 @@ use regionkommune;
 
 -- MySQL dump 10.13  Distrib 8.0.21, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: 20cregionkommune
+-- Host: 127.0.0.1    Database: regionkommune
 -- ------------------------------------------------------
 -- Server version	8.0.21
 

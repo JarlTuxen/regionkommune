@@ -17,6 +17,7 @@ public class Kommune {
     private String kommuneHref;
 
     @ManyToOne
+    @JoinColumn(name="region_kode")
     @JsonManagedReference
     private Region region;
 

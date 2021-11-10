@@ -19,8 +19,9 @@ public class Region {
     private String regionNavn;
     private String regionHref;
 
-    @OneToMany
-    @JoinColumn(name = "region_kode")
+    //bi-directional many-to-one association to Kommune
+    @OneToMany(mappedBy="region")
+    //@JoinColumn(name = "region_kode")
     @JsonBackReference
     private Set<Kommune> kommuner = new HashSet<>();
 

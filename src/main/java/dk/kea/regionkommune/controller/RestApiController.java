@@ -57,7 +57,7 @@ public class RestApiController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
 
-        //PageNo and Size
+        //page (page number out of total number of pages) and size (pageSize)
         Pageable paging = PageRequest.of(page, size);
         Page<Kommune> pageKommune = kommuneRepository.findAll(paging);
 
@@ -76,8 +76,14 @@ public class RestApiController {
 
     }
 
+    @GetMapping("/kommunesort")
+    public ResponseEntity<List<Kommune>> sortKommune(){
+        Sort sortOrder = Sort.by("kommuneNavn").descending();
+        List<Kommune> response = kommuneRepository.findAll(sortOrder);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
-/*    @GetMapping("/kommunesortp")
+    @GetMapping("/kommunesortp")
     public ResponseEntity<Map<String, Object>>  getScreeningsSortAndPage (
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size,
@@ -85,7 +91,26 @@ public class RestApiController {
             @RequestParam(defaultValue = "asc") String sortOrder
     ){
 
-    } */
+        //sortOrder as ternary operator (default is ascending)
+        Sort pSort = sortOrder.equals("asc")?Sort.by(sortBy):Sort.by(sortBy).descending();
+
+        Pageable pagingSort = PageRequest.of(page, size, pSort);
+
+        Page<Kommune> pageScreens = kommuneRepository.findAll(pagingSort);
+
+        List<Kommune> kommuner = pageScreens.getContent();
+
+        if (kommuner.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("kommuner", kommuner);
+        response.put("currentPage", pageScreens.getNumber());
+        response.put("totalItems", pageScreens.getTotalElements());
+        response.put("totalPages", pageScreens.getTotalPages());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+
+    }
 
     @GetMapping("/regioner/{id}")
     public Region getRegion(@PathVariable int id) {

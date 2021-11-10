@@ -1,5 +1,7 @@
 package dk.kea.regionkommune.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -15,7 +17,7 @@ public class Kommune {
     private String kommuneHref;
 
     @ManyToOne
-    @JoinColumn(name = "region_kode")
+    @JsonManagedReference
     private Region region;
 
     public Kommune() {

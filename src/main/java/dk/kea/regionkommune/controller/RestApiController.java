@@ -137,9 +137,11 @@ public class RestApiController {
         return new ResponseEntity<>(kommune, HttpStatus.OK);
     }
 
-/*    @PostMapping("/kommuner")
-    public ResponseEntity<Kommune> createKommune(){
-
-    }*/
+    @PostMapping(value = "/kommuner", consumes = "application/json")
+    public ResponseEntity<Kommune> createKommune(@RequestBody Kommune kommune){
+        //System.out.println(kommune);
+        kommuneRepository.save(kommune);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 
 }

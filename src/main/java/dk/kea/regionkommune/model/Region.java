@@ -6,9 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 
 @Entity
@@ -22,7 +20,7 @@ public class Region {
     //bi-directional many-to-one association to Kommune
     @OneToMany(mappedBy="region")
     @JsonBackReference
-    private Set<Kommune> kommuner = new HashSet<>();
+    private List<Kommune> kommuner = new ArrayList<>();
 
     public Region() {
     }
@@ -51,11 +49,11 @@ public class Region {
         this.regionHref = regionHref;
     }
 
-    public Set<Kommune> getKommuner() {
+    public List<Kommune> getKommuner() {
         return kommuner;
     }
 
-    public void setKommuner(Set<Kommune> kommuner) {
+    public void setKommuner(List<Kommune> kommuner) {
         this.kommuner = kommuner;
     }
 

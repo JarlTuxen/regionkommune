@@ -18,7 +18,7 @@ public class Kommune {
 
     @ManyToOne
     @JoinColumn(name="region_kode")
-    //@JsonManagedReference
+    @JsonManagedReference
     private Region region;
 
     public Kommune() {
